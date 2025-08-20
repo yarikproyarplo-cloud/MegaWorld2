@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MegaWorld - Гриферский Minecraft сервер</title>
+    <style>
+        /* Сброс некоторых стилей */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #0b0b0b);
+            color: #eee;
+        }
+
+        header {
+            background-color: #0c3c78;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #f4c242;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 3px;
+            font-weight: 900;
+            color: #f4c242;
+            text-shadow: 1px 1px 5px #000;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px 60px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.4rem;
+            margin-bottom: 30px;
+            color: #f4c242;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        /* Контейнер доната */
+        .donate-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .donate-card {
+            background: linear-gradient(145deg, #222, #111);
+            border-radius: 12px;
+            box-shadow: 0 0 15px #f4c242aa;
+            padding: 25px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .donate-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #f4c242dd;
+        }
+
+        .donate-name {
+            font-weight: 800;
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+            color: #f4c242;
+            text-shadow: 1px 1px 4px #000;
+        }
+
+        .donate-price {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #fff3b0;
+            text-shadow: 1px 1px 3px #663c00;
+        }
+
+        /* Особое выделение для эксклюзивного доната Tiger */
+        .exclusive {
+            background: linear-gradient(145deg, #3a1f0b, #5a2a01);
+            border: 3px solid #f19c00;
+            box-shadow: 0 0 30px #f19c0033;
+            color: #ffdb53;
+        }
+
+        /* Кнопка для доната */
+        .donate-btn {
+            margin-top: auto;
+            background-color: #f4c242;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            box-shadow: 0 5px 15px #c7a60dcc;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            user-select: none;
+            outline-offset: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .donate-btn:hover,
+        .donate-btn:focus {
+            background-color: #f9d84b;
+            box-shadow: 0 7px 20px #c7a60de0;
+        }
+
+        /* Доп. секция кейсов */
+        .cases-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .cases-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .case-card {
+            background: linear-gradient(145deg, #222, #111);
+            border-radius: 12px;
+            box-shadow: 0 0 15px #3a86ffaa;
+            padding: 20px 15px;
+            width: 200px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #6ec1ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .case-card:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px #3a86fff0;
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px #003366;
+        }
+
+        .case-price {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #cce7ff;
+            text-shadow: 1px 1px 2px #002244;
+        }
+
+        footer {
+            background-color: #0c3c78;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #ccc;
+            border-top: 3px solid #f4c242;
+        }
+
+        /* Адаптив для маленьких экранов */
+        @media (max-width: 480px) {
+            .cases-container,
+            .donate-container {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: center;
+            }
+            .case-card, .donate-card {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MegaWorld</h1>
+        <p style="font-weight:600; color:#eab308; margin-top: 6px;">Гриферский Minecraft сервер</p>
+    </header>
+
+    <main>
+        <section aria-label="Донат на сервер" id="donate">
+            <h2>Возможности доната</h2>
+            <div class="donate-container">
+                <article class="donate-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить донат Hero за 10 рублей">
+                    <h3 class="donate-name">Hero</h3>
+                    <p class="donate-price">10 руб</p>
+                    <button class="donate-btn" type="button">Купить</button>
+                </article>
+                <article class="donate-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить донат Titan за 59 рублей">
+                    <h3 class="donate-name">Titan</h3>
+                    <p class="donate-price">59 руб</p>
+                    <button class="donate-btn" type="button">Купить</button>
+                </article>
+                <article class="donate-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить донат Avenger за 99 рублей">
+                    <h3 class="donate-name">Avenger</h3>
+                    <p class="donate-price">99 руб</p>
+                    <button class="donate-btn" type="button">Купить</button>
+                </article>
+                <article class="donate-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить донат Overlord за 149 рублей">
+                    <h3 class="donate-name">Overlord</h3>
+                    <p class="donate-price">149 руб</p>
+                    <button class="donate-btn" type="button">Купить</button>
+                </article>
+                <article class="donate-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить донат Magister за 199 рублей">
+                    <h3 class="donate-name">Magister</h3>
+                    <p class="donate-price">199 руб</p>
+                    <button class="donate-btn" type="button">Купить</button>
+                </article>
+                <article class="donate-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить донат Imperator за 299 рублей">
+                    <h3 class="donate-name">Imperator</h3>
+                    <p class="donate-price">299 руб</p>
+                    <button class="donate-btn" type="button">Купить</button>
+                </article>
+                <article class="donate-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить донат Dragon за 399 рублей">
+                    <h3 class="donate-name">Dragon</h3>
+                    <p class="donate-price">399 руб</p>
+                    <button class="donate-btn" type="button">Купить</button>
+                </article>
+                <article class="donate-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить донат Y.Helper за 699 рублей">
+                    <h3 class="donate-name">Y.Helper</h3>
+                    <p class="donate-price">699 руб</p>
+                    <button class="donate-btn" type="button">Купить</button>
+                </article>
+                <article class="donate-card exclusive" tabindex="0" role="button" aria-pressed="false" aria-label="Купить эксклюзивный донат Tiger за 599 рублей">
+                    <h3 class="donate-name">Tiger <sup>Эксклюзивный</sup></h3>
+                    <p class="donate-price">599 руб</p>
+                    <button class="donate-btn" type="button">Купить</button>
+                </article>
+            </div>
+
+            <section class="cases-section" aria-label="Донат с кейсами">
+                <h2>Кейсы с донатом</h2>
+                <div class="cases-container">
+                    <article class="case-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить 3 кейса с донатом за 19 рублей">
+                        <h3 class="case-title">3 Кейса</h3>
+                        <p class="case-price">19 руб</p>
+                        <button class="donate-btn" type="button">Купить</button>
+                    </article>
+                    <article class="case-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить 10 кейсов с донатом за 49 рублей">
+                        <h3 class="case-title">10 Кейсов</h3>
+                        <p class="case-price">49 руб</p>
+                        <button class="donate-btn" type="button">Купить</button>
+                    </article>
+                    <article class="case-card" tabindex="0" role="button" aria-pressed="false" aria-label="Купить 25 кейсов с донатом за 99 рублей">
+                        <h3 class="case-title">25 Кейсов</h3>
+                        <p class="case-price">99 руб</p>
+                        <button class="donate-btn" type="button">Купить</button>
+                    </article>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2024 MegaWorld — Все права защищены | Гриферский Minecraft сервер
+    </footer>
+</body>
+</html>
